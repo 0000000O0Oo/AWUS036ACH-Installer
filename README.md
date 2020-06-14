@@ -2,4 +2,4 @@
 
 Python3 install.py
 
-Tool is in french
+Tool is in french for now i will translate it if needed !!
