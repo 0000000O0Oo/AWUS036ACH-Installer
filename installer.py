@@ -58,7 +58,10 @@ while 1:
 				os.system("ifconfig")
 			else:
 				break
-		print(Fore.RED+ Style.DIM +"[+]Activation du mode monitor sur " + carte+ " en cours..." + Style.RESET_ALL)
+		print(Fore.GREEN+ Style.DIM +"[+]Activation du mode monitor sur " + carte+ " en cours..." + Style.RESET_ALL + Fore.RESET)
 		os.system("ifconfig " + carte + " down")
 		os.system("iwconfig " + carte + " mode monitor")
 		os.system("ifconfig " + carte + " up")
+		os.system("iwconfig")
+		os.system("sleep 3.5s")
+		print("")
