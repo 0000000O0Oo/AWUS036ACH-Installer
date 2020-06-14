@@ -26,11 +26,10 @@ while 1:
 		if rtl.is_installed:
 			print('Le package est installé')
 		else:
-			print("Installation de " + realtek + "en cours !!")
-			rtl.mark_install
+			print(Fore.GREEN + Style.DIM + "Installation de " + realtek + "en cours !!" + Style.RESET)
+			os.system("apt-get install " + realtek)
 
 		netconf = open("/etc/NetworkManager/NetworkManager.conf")
-		print(netconf)
 		if "\n#Automatically writed by KaraxZoR\n[devices]\nunmanaged-devices=interface-name:wlan0" in netconf.read():
 			print("Prochaine Étape !")
 		else:
@@ -41,6 +40,8 @@ while 1:
 
 		print("Redémarrage du service 'NetworkManager' en cours...")
 		os.system("service network-manager restart")
+		os.system("clear")
+		print(Fore.GREEN+Style.DIM+"[+]Tout semble correcte !"+Fore.RESET)
 
 		leave = input("Souhaitez-vous quitter? (o/n)")
 		if leave == "o":
