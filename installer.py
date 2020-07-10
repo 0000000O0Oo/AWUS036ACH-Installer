@@ -1,11 +1,6 @@
 import apt, sys, os
 from colorama import Fore, Style
 
-print(Fore.GREEN + Style.DIM + "[+]Mise-à-jour APT en cours..." + Fore.RESET)
-os.system("apt-get update")
-os.system("clear")
-print(Fore.GREEN + Style.DIM + "Mise-à-jour terminée" + Fore.RESET)
-os.system("sleep 5s")
 os.system("clear")
 input("Bienvenue dans le script appuyez sur 'enter' pour continuer...")
 while 1:
@@ -27,6 +22,10 @@ while 1:
 		if rtl.is_installed:
 			print('Le package est installé')
 		else:
+			print(Fore.GREEN + Style.DIM + "[+]Mise-à-jour APT en cours..." + Fore.RESET)
+			os.system("apt-get update")
+			os.system("clear")
+			print(Fore.GREEN + Style.DIM + "Mise-à-jour terminée" + Fore.RESET)
 			print(Fore.GREEN + Style.DIM + "Installation de " + realtek + "en cours !!" + Style.RESET)
 			os.system("apt-get install " + realtek)
 
