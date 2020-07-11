@@ -1,5 +1,6 @@
 import apt, sys, os
 from colorama import Fore, Style
+import time
 
 os.system("clear")
 input("Bienvenue dans le script appuyez sur 'enter' pour continuer...")
@@ -8,8 +9,8 @@ while 1:
 	print(Fore.GREEN + Style.DIM +"[1] Installation et configuration automatique des drivers pour AWUS036ACH")
 	print(Fore.GREEN+"[2] Activation du mode Monitor" + Fore.RESET)
 	print(Fore.GREEN+"[3] Désactivation du mode Monitor" + Fore.RESET)
+	print(Fore.GREEN + "[4] Changer l'adresse MAC d'un interface" + Fore.RESET)
 	choix = input(Fore.GREEN + Style.DIM + "Choisissez une option (1/5) " + Fore.RED + ">> " + Style.RESET_ALL + Fore.RESET)
-	print(type(choix))
 	if int(choix) == 1:
 		os.system("clear")
 		realtek = "realtek-rtl88xxau-dkms"
@@ -100,4 +101,44 @@ while 1:
 			break
 		else:
 			print("Retour au menu principal")
-
+	if int(choix) == 4:
+		os.system("clear")
+		while 1:
+			print(Fore.GREEN + "Entrez la commande 'ifconfig' pour accéder à la liste des interfaces disponibles")
+			print(Fore.GREEN + "Entrez la commande 'iwconfig' pour accéder à la liste des interfaces et leur mode actuel")
+			print(Fore.GREEN + "Entrez la commande 'clear' pour nettoyer le contenu de la console")
+			interface = input(Fore.GREEN + "[" + Fore.RED + "!" + Fore.GREEN +"]" + "Veuillez choisir un interface\n" + Fore.GREEN + "Interface" + Fore.RED + " >> " + Fore.RESET)
+			if interface == "ifconfig":
+				os.system("ifconfig")
+			elif interface == "iwconfig":
+				os.system("iwconfig")
+			elif interface == "clear":
+				os.system("clear")
+			elif interface == "wlan0" or "wlan1" or "wlan2" or "wlan3" or "wlan4" or "eth0":
+				os.system("clear")
+				print(Fore.GREEN + "Votre adresse mac actuelle est :")
+				os.system("cat /sys/class/net/" + interface + "/address")
+				os.system("sleep 5")
+				os.system("clear")
+				print(Fore.GREEN+ Style.DIM + "Changement de l'adresse MAC en cours..." + Fore.RESET + Style.RESET_ALL)
+				os.system("ifconfig wlan0 down")
+				os.system("macchanger -r {0}".format(interface))
+				os.system("ifconfig wlan0 up")
+				os.system("sleep 3.2")
+				os.system("clear")
+				print(Fore.GREEN + "L'adresse MAC à été changée avec succès ! Voici votre nouvelle adresse : ")
+				os.system("cat /sys/class/net/" + interface + "/address")
+				os.system("sleep 5")
+				os.system("clear")
+				break
+			else:
+				print(Fore.RED + "[!] NOM DE L'INTERFACE INCONNUE PAR LE TOOL [!]" + "Le tool va quand même essayer de changer l'adresse MAC de l'interface")
+				print(Fore.GREEN+ Style.DIM + "Changement de l'adresse MAC en cours..." + Fore.RESET + Style.RESET_ALL)
+				os.system("ifconfig wlan0 down")
+				os.system("macchanger -r {0}".format(interface))
+				os.system("ifconfig wlan0 up")
+				print(Fore.GREEN + "Voici votre nouvelle adresse MAC :")
+				os.system("cat /sys/class/net/" + interface + "/address")
+				os.system("sleep 5")
+				os.system("clear")
+				break
